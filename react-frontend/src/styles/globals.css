@@ -1,0 +1,55 @@
+@import url("https://fonts.googleapis.com/css2?family=Eczar:wght@400;500;600;700;800&display=swap");
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Eczar", serif;
+  scrollbar-color: rgba(255, 255, 255, 0);
+}
+
+a {
+  color: #84309c;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  color: #e7e8e8;
+  background: #070707;
+}
+
+.crg-button {
+  font-family: inherit !important;
+  font-size: 20px !important;
+  position: relative !important;
+  width: 200px !important;
+  height: 70px !important;
+  background-color: rgba(255, 255, 255, 0) !important;
+  background-image: url(../img/Primary-button.png) !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  color: #c7c4c3 !important;
+  border: none !important;
+  bottom: 0px !important;
+  left: 0px !important;
+  transition: 0.5s ease !important;
+  &:hover {
+    left: 2px !important;
+    bottom: 2px !important;
+    color: #e7e8e8 !important;
+    filter: brightness(1.1);
+  }
+  &:active {
+    color: rgb(255, 255, 255) !important;
+    background-image: url(../img/Primary-button-higlight.png) !important;
+    transition: none !important;
+  }
+}
+
+main > div {
+  padding-top: 130px;
+}

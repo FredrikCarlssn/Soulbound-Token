@@ -1,0 +1,1 @@
+export const SOULBOUND_CONTRACT = "0xab3f3996845fc91cb42c849179fa82b692f8af69";
