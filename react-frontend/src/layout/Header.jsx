@@ -10,6 +10,10 @@ const StyledHeader = styled.header`
   display: flex;
   justify-content: center;
   position: absolute;
+
+  @media screen and (max-width: 870px) {
+    transform: scale(0.6);
+  }
 `;
 
 const WalletStyle = styled.div`

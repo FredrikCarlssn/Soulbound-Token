@@ -3,6 +3,8 @@ import { styled } from "styled-components";
 import horisontalLine from "../img/Line-fade-300.png";
 import CardBackground from "../img/big-text-box.png";
 
+import Tokens from "../Tokens/TokenData.json";
+
 const StyledImg = styled.img`
   width: 160px;
   transform: scaleY(5);
@@ -29,10 +31,12 @@ const StyledDiv = styled.div`
   border-radius: 3px;
 `;
 
-export const DisplayToken = ({ image, clickedImage, name }) => {
+export const DisplayToken = ({ name, linkTo }) => {
+  const tokenJSON = Tokens[name];
+
   const StyledButton = styled.button`
     all: unset;
-    background-image: url(${image});
+    background-image: url(${require(`../Tokens/img/${tokenJSON.soulboundToken}/default.png`)});
     background-size: contain;
     background-repeat: no-repeat;
     height: 150px;
@@ -49,16 +53,16 @@ export const DisplayToken = ({ image, clickedImage, name }) => {
       cursor: pointer;
       filter: brightness(1.15) contrast(1.2);
     }
-    ${clickedImage &&
+    ${tokenJSON.clickedImage &&
     `
         &:active {
-          background-image: url(${clickedImage});
+          background-image:url(${require(`../Tokens/img/${tokenJSON.soulboundToken}/clicked.png`)});
         }
       `}
   `;
   return (
     <StyledDiv>
-      <a href={`/#/claim/${name}`}>
+      <a href={`/#/${linkTo}`}>
         <StyledButton />
       </a>
       <StyledImg src={horisontalLine} alt={name} style={{ marginTop: 10 }} />

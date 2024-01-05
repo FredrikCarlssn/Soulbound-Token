@@ -1,27 +1,50 @@
-# CRA JavaScript Starter
+# Soulbound Token Claiming Grounds
 
-Starter kit to build with Create React App and thirdweb without additional initial configuration.
+This is the front-end for the Soulbound Token smart contract. The project is built with React and uses the ThirdwebProvider for interacting with the Sepolia blockchain.
 
-## Installation
+## Built With
 
-Install the template with [thirdweb create](https://portal.thirdweb.com/cli/create)
+- [React](https://reactjs.org/) - The web framework used
+- [ThirdwebProvider](https://docs.thirdweb.com/) - The NFT platform used
+- [React Router](https://reactrouter.com/) - Used for routing
+- [Styled-components](https://styled-components.com/) - Used for component styling
+- [Dotenv](https://www.npmjs.com/package/dotenv) - Used to manage environment variables
 
-```bash
- npx thirdweb create --template cra-javascript-starter
-```
+## Project Structure
+
+The main entry point of the application is `index.js`. This file sets up the React application, including the routing for different pages such as the landing page, profile page, and claim page.
+
+The tokens are stored in the `Tokens` folder. This folder contains a JSON file with all the token templates, as well as an `img` folder for all media associated with each token template.
+
+## Available Routes
+
+- `/` - The landing page of the application.
+- `/profile` - The profile page where users can view their tokens.
+- `/profile/:token/:tokenId` - A detailed view of a specific token owned by the user.
+- `/claim` - The page where users can claim new tokens.
+- `/claim/:token` - The page where users can claim a specific token.
+- `/about` - The about page with information about the project.
 
 ## Run Locally
 
-Install dependencies
+Install dependencies --- yarn -or- npm
 
 ```bash
 yarn
+
+---
+
+npm i
 ```
 
 Start the server
 
 ```bash
 yarn start
+
+---
+
+npm start
 ```
 
 ## Environment Variables
@@ -32,25 +55,12 @@ You can generate your `clientId` and `secretKey` via thirdweb's [dashboard](http
 
 ## Deployment
 
-Deploy a copy of your application to IPFS using the following command:
+Deploy the application to GitHub-pages using the following command:
 
 ```bash
 yarn deploy
+
+---
+
+npm run deploy
 ```
-
-## Additional Resources
-
-- [Documentation](https://portal.thirdweb.com)
-- [Templates](https://thirdweb.com/templates)
-- [Video Tutorials](https://youtube.com/thirdweb_)
-- [Blog](https://blog.thirdweb.com)
-
-## Contributing
-
-Contributions and [feedback](https://feedback.thirdweb.com) are always welcome!
-
-Please visit our [open source page](https://thirdweb.com/open-source) for more information.
-
-## Need help?
-
-For help, join the [discord](https://discord.gg/thirdweb) or visit our [support page](https://support.thirdweb.com).

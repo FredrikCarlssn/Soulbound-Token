@@ -2,10 +2,17 @@
 pragma solidity ^0.8.20;
 
 import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
+import {ERC721Enumerable} from "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import {ERC721Burnable} from "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 import {SoulboundStorage} from "./721Adaption/SoulboundStorage.sol";
-import {Base64} from "@openzeppelin/contracts/utils/Base64.sol";
 
-contract SoulboundToken is ERC721, SoulboundStorage {
+contract SoulboundToken is
+    ERC721,
+    ERC721Enumerable,
+    ERC721Burnable,
+    SoulboundStorage
+{
     uint256 private _tokenIdCounter;
     mapping(address => mapping(uint8 => bool)) public allowList; //address => SoulboundTokens => bool
     mapping(address => mapping(uint8 => bool)) public claimedSoulboundToken; //address => SoulboundTokens => bool
@@ -43,7 +50,7 @@ contract SoulboundToken is ERC721, SoulboundStorage {
         }
 
         _tokenIdCounter += 1;
-        tokenIdToSoulboundTokens[_tokenIdCounter] = _soulboundToken;
+        tokenIdToSoulboundToken[_tokenIdCounter] = _soulboundToken;
         _safeMint(_recipient, _tokenIdCounter);
     }
 
@@ -83,9 +90,9 @@ contract SoulboundToken is ERC721, SoulboundStorage {
         }
     }
 
-    // ------------------ //
-    // AllowList Functions//
-    // ------------------ //
+    // --------------------- //
+    //  AllowList Functions  //
+    // --------------------- //
 
     function addToAllowList(
         address _address,
@@ -110,25 +117,11 @@ contract SoulboundToken is ERC721, SoulboundStorage {
     ) public view override returns (string memory) {
         if (ownerOf(_tokenId) == address(0)) revert nonExistentToken(_tokenId);
 
-        return
-            string(
-                abi.encodePacked(
-                    _baseURI(),
-                    Base64.encode(constructAttributes(_tokenId))
-                )
-            );
+        return soulboundTokenToUri[tokenIdToSoulboundToken[_tokenId]];
     }
 
     function _baseURI() internal pure override(ERC721) returns (string memory) {
         return "data:application/json;base64,";
-    }
-
-    // ------------------ //
-    // Enable Burn //
-    // ------------------ //
-
-    function burn(uint256 tokenId) public {
-        _burn(tokenId);
     }
 
     // ------------------ //
@@ -139,7 +132,41 @@ contract SoulboundToken is ERC721, SoulboundStorage {
         address from,
         address to,
         uint256 tokenId
-    ) public pure override {
+    ) public pure override(ERC721, IERC721) {
         revert("SoulboundToken: transfer not allowed");
+    }
+
+    // ------------------ //
+    //    Burn Function   //
+    // ------------------ //
+    function burn(uint256 tokenId) public override {
+        address owner = ownerOf(tokenId);
+        uint8 soulboundToken = tokenIdToSoulboundToken[tokenId];
+        claimedSoulboundToken[owner][soulboundToken] == false;
+        super.burn(tokenId);
+    }
+
+    // ---------------------------- //
+    // Solidity Required overrides  //
+    // ---------------------------- //
+    function _update(
+        address to,
+        uint256 tokenId,
+        address auth
+    ) internal override(ERC721, ERC721Enumerable) returns (address) {
+        return super._update(to, tokenId, auth);
+    }
+
+    function _increaseBalance(
+        address account,
+        uint128 value
+    ) internal override(ERC721, ERC721Enumerable) {
+        super._increaseBalance(account, value);
+    }
+
+    function supportsInterface(
+        bytes4 interfaceId
+    ) public view override(ERC721, ERC721Enumerable) returns (bool) {
+        return super.supportsInterface(interfaceId);
     }
 }

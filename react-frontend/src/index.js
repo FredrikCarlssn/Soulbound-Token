@@ -7,9 +7,10 @@ import { createRoot } from "react-dom/client";
 import { HashRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "./layout/Layout";
 import { LandingPage } from "./pages/LandingPage";
-import { ProfilePage } from "./pages/ProfilePage";
-import { ClaimPage } from "./pages/ClaimPage";
-import { ClaimToken } from "./pages/ClaimToken";
+import { ProfilePage } from "./pages/ProfilePage/ProfilePage";
+import { DisplayOwnedToken } from "./pages/ProfilePage/DisplayOwnedToken";
+import { ClaimPage } from "./pages/ClaimPage/ClaimPage";
+import { ClaimToken } from "./pages/ClaimPage/ClaimToken";
 import { AboutPage } from "./pages/AboutPage";
 
 // This is the chain your dApp will work on.
@@ -29,10 +30,12 @@ root.render(
           <Route path="/" element={<Layout />}>
             <Route index element={<LandingPage />} />
             <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/profile/:address" element={<ProfilePage />} />
+            <Route
+              path="/profile/:token/:tokenId"
+              element={<DisplayOwnedToken />}
+            />
             <Route path="/claim" element={<ClaimPage />} />
             <Route path="/claim/:token" element={<ClaimToken />} />
-            <Route path="/profile" element={<ProfilePage />} />
             <Route path="/about" element={<AboutPage />} />
           </Route>
         </Routes>

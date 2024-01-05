@@ -36,6 +36,9 @@
   align-items: center;
   padding-left: 35px;
   margin-right: 0px;
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
 }
 
 .menu-logo img {
@@ -85,12 +88,17 @@
   margin-top: 50px;
 }
 
-.css-1g5k5ll.web3button {
+.web3button {
+  height: 55px !important;
+  width: 180px !important;
   padding: 3px 20px !important;
   border-radius: 0 !important;
   border: 2px solid #694e43 !important;
+  margin-left: 20px !important;
+  background-color: hsl(230deg 11.63% 8.43%) !important;
+  color: #fff !important;
 }
 
-.css-1g5k5ll.web3button > div {
+.web3button > div {
   gap: 0 !important;
 }

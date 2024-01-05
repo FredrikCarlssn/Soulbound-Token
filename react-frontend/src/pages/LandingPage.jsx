@@ -44,6 +44,9 @@ const StyledDiv = styled.div`
   padding-bottom: 100px;
   padding: 10px 30px;
   border-radius: 10px;
+  @media screen and (max-width: 600px) {
+    transform: scale(0.5);
+  }
 `;
 
 const StyledHl = styled.img`

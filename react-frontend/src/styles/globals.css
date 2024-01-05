@@ -53,3 +53,24 @@ body {
 main > div {
   padding-top: 130px;
 }
+
+hr {
+  border: 2px solid #694e43;
+  margin: 0;
+}
+
+.youtube-player {
+  border: 4px solid #694e43;
+}
+
+.desktop {
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
+}
+
+.mobile {
+  @media screen and (min-width: 600px) {
+    display: none;
+  }
+}

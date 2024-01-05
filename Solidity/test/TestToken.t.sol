@@ -34,7 +34,7 @@ contract TestToken is Test {
         console.log("uri", uri);
         assertEq(
             uri,
-            "data:application/json;base64,eyJuYW1lIjoiU291bGJvdW5kIFRva2VuIiwgImRlc2NyaXB0aW9uIjoiQSB0b2tlbiB0aGF0IGlzIHNvdWxib3VuZCB0byB5b3VyIHdhbGxldC4iLCAiaW1hZ2UiOiAiaXBmczovL1FtVVRlTkhyY1JaQlk1ekR3bVFISjNwa1NhZnNMUDZKTGVHOGJ2Qjh6UHdIN2kiLCAiYXR0cmlidXRlcyI6IFt7InRyYWl0X3R5cGUiOiAiUmFyaXR5IiwgInZhbHVlIjogIkNvbW1vbiJ9LCB7InRyYWl0X3R5cGUiOiAiWFAgQm9vc3QiLCAidmFsdWUiOiAxfV19"
+            "data:application/json;base64,eyJuYW1lIjoiS25pZ2h0IiwgImRlc2NyaXB0aW9uIjoiVGhlIEZlbG9yaWFuIGtuaWdodHMgYXJlIGEgcG93ZXJmdWwgaHlicmlkIG9mIGh1bWFuIGFuZCBsaW9uLCBzdGFuZGluZyBhcyBhIGJlYWNvbiBvZiB2YWxvciBpbiB0aGUgd29ybGQgb2YgTmFyYW11bnouIFJlbm93bmVkIGZvciB0aGVpciBwcm93ZXNzIGluIG1lbGVlIGNvbWJhdCwgdGhlc2Ugbm9ibGUga25pZ2h0cyB3aWVsZCBzd29yZHMgYW5kIHNoaWVsZHMgdG8gZGVmZWF0IHRoZWlyIGVuZW1pZXMuIiwgImltYWdlIjogImlwZnM6Ly9RbVJvNUJDaE5iWkdOUXlaUkZjeWF1akY4WEdaWnlrcXlWRjc3TWI0N0R5ZURGIiwgImF0dHJpYnV0ZXMiOiBbeyJ0cmFpdF90eXBlIjogIlJhcml0eSIsICJ2YWx1ZSI6ICJDb21tb24ifV19"
         );
     }
 
@@ -54,21 +54,51 @@ contract TestToken is Test {
     }
 
     function testInvalidEveryoneMint() public {
-        //0
         vm.prank(msg.sender);
-        vm.expectRevert(abi.encodeWithSelector(selector, 0, 1, msg.sender));
-        soulboundToken.mintSoulboundToken(msg.sender, 1);
+        soulboundToken.createSoulboundToken(
+            "image", //mediaType
+            "QmUTeNHrcRZBY5zDwmQHJ3pkSafsLP6JLeG8bvB8zPwH7i", //IPFS
+            "Soulbound Token Owner", //name
+            "A token that is soulbound to your wallet.", //description
+            "Common", //rarity
+            0 //mintingType
+        );
+        // First mint
+        vm.prank(msg.sender);
+        soulboundToken.mintSoulboundToken(msg.sender, 3);
+        // Second mint should fail
+        vm.prank(msg.sender);
+        vm.expectRevert(abi.encodeWithSelector(selector, 0, 3, msg.sender));
+        soulboundToken.mintSoulboundToken(msg.sender, 3);
     }
 
     function testInvalidAllowListMint() public {
+        vm.prank(msg.sender);
+        soulboundToken.createSoulboundToken(
+            "image", //mediaType
+            "QmUTeNHrcRZBY5zDwmQHJ3pkSafsLP6JLeG8bvB8zPwH7i", //IPFS
+            "Soulbound Token Owner", //name
+            "A token that is soulbound to your wallet.", //description
+            "Common", //rarity
+            1 //mintingType
+        );
         //1
         vm.prank(msg.sender);
-        vm.expectRevert(abi.encodeWithSelector(selector, 1, 2, msg.sender));
-        soulboundToken.mintSoulboundToken(msg.sender, 2);
-        assertEq(soulboundToken.claimedSoulboundToken(msg.sender, 2), false);
+        vm.expectRevert(abi.encodeWithSelector(selector, 1, 3, msg.sender));
+        soulboundToken.mintSoulboundToken(msg.sender, 3);
+        assertEq(soulboundToken.claimedSoulboundToken(msg.sender, 3), false);
     }
 
     function testInvalidOwnerMint() public {
+        vm.prank(msg.sender);
+        soulboundToken.createSoulboundToken(
+            "image", //mediaType
+            "QmUTeNHrcRZBY5zDwmQHJ3pkSafsLP6JLeG8bvB8zPwH7i", //IPFS
+            "Soulbound Token Owner", //name
+            "A token that is soulbound to your wallet.", //description
+            "Common", //rarity
+            2 //mintingType
+        );
         //2
         vm.prank(address(0xc9c81Af14eC5d7a4Ca19fdC9897054e2d033bf05));
         vm.expectRevert(abi.encodeWithSelector(selector, 2, 3, msg.sender));
@@ -86,11 +116,11 @@ contract TestToken is Test {
             "Soulbound Token Owner", //name
             "A token that is soulbound to your wallet.", //description
             "Common", //rarity
-            1, //xpBoost
             2 //mintingType
         );
+        counter++;
 
-        assertEq(soulboundToken.getCounter(), counter + 1);
+        assertEq(soulboundToken.getCounter(), counter);
         assertEq(soulboundToken.soulboundTokenToMintingType(counter), 2);
 
         vm.prank(msg.sender);
