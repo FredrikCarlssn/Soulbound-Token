@@ -120,10 +120,6 @@ contract SoulboundToken is
         return soulboundTokenToUri[tokenIdToSoulboundToken[_tokenId]];
     }
 
-    function _baseURI() internal pure override(ERC721) returns (string memory) {
-        return "data:application/json;base64,";
-    }
-
     // ------------------ //
     // Disable Transfers  //
     // ------------------ //
