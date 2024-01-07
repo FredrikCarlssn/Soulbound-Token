@@ -1,58 +1,49 @@
-## Documentation
+# Soulbound Tokens
 
-https://book.getfoundry.sh/
+This is a framework for creating and storing Soulbound Tokens on any EVM-compatibale blockchain.
 
-## Usage
+# Getting Started
 
-### Build
+## Foundry
 
-```shell
-$ forge build
+- `GetFoundry`: Install foundry [at this link](getFoundry.sh) (getFoundry.sh)
+- `Install dependencies`: run this command in project terminal to install all dependencies ↓
+
+```bash
+forge install
 ```
 
-### Test
+## DOTENV
 
-```shell
-$ forge test
-```
+- Make sure you have DOTENV installed globally
 
-### Format
+Create a file called .env and copy all the variables form .env.example into the new file. Make sure to only store wallets and keys with no real value in this file. The following environment variables are used:
 
-```shell
-$ forge fmt
-```
+- `SEPOLIA_TESTNET_PRIVATE_KEY=`: Private key for a wallet with sepolia funds
+- `MUMBAI_TESTNET_PRIVATE_KEY=`: Private key for a wallet with Mumbai funds
+- `ETHERSCAN_API_KEY=`: A API key to be able to verify a contract on Etherscan
+- `POLYGONSCAN_API_KEY=`: A API key to be able to verify a contract on Polygonscan
+- `ADDRESS=`: This is a helper variable to the Makefile. If a contract verification failed, the address to the contract can be pasted here to retry the verification
 
-### Gas Snapshots
+# MAKEFILE commands
 
-```shell
-$ forge snapshot
-```
+Make sure you have MAKEFILE installed globally
 
-### Anvil
+# Makefile Targets
 
-```shell
-$ anvil
-```
+- `flat`: This target uses the `forge flatten` command to flatten the `src/SoulboundToken.sol` contract into a single file named `flattened.sol`. Flattening is the process of consolidating all dependencies of a contract into a single file, which is often required for contract verification on block explorers like Etherscan.
 
-### Deploy
+- `test`: This target runs the `forge test` command with verbose output (`-vv`) and a gas report. This command is used to run unit tests for the smart contract.
 
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
+- `vTest`: This target is similar to `test`, but it provides more detailed output (`-vvvv`) for debugging purposes.
 
-### Cast
+- `localDeploy`: This target uses the `forge script` command to deploy the `SoulboundToken` contract to a local Ethereum network (localhost:8545). The `DEFAULT_ANVIL_KEY` is used as the private key for the deployment account. To use this command you must first run Anvil.
 
-```shell
-$ cast <subcommand>
-```
+- `Sepolia`: This target deploys the `SoulboundToken` contract to the Sepolia testnet. The `SEPOLIA_TESTNET_PRIVATE_KEY` is used as the private key for the deployment account, and the contract is verified on Etherscan using the `ETHERSCAN_API_KEY`.
 
-### Help
+- `Mumbai`: This target deploys the `SoulboundToken` contract to the Mumbai testnet (Polygon/Matic network). The `MUMBAI_TESTNET_PRIVATE_KEY` is used as the private key for the deployment account, and the contract is verified on Polygonscan using the `POLYGONSCAN_API_KEY`.
 
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+- `verify`: This target uses the `forge verify-contract` command to verify the `SoulboundToken` contract on the Sepolia testnet. The `ETHERSCAN_API_KEY` is used for Etherscan API access, and the `ADDRESS` should be the address where the contract was deployed.
 
 # SoulboundToken Smart Contract
 
@@ -224,8 +215,9 @@ The `SoulboundStorage` contract is a storage contract for Soulbound tokens. It p
 ## State Variables
 
 - `counter`: An internal variable used to keep track of the total number of Soulbound tokens.
+- `soulboundTokenToUri`: A public mapping in the `SoulboundStorage` contract that associates each Soulbound token (represented by a unique number) with a URI, which is a string representation of the token's metadata in base64-encoded JSON format.
 - `numberToSoulboundToken`: A public mapping from a token number to a `SoulboundTokenStruct`.
-- `tokenIdToSoulboundTokens`: A public mapping from a token ID to a token number.
+- `tokenIdToSoulboundToken`: A public mapping from a token ID to a token number.
 - `soulboundTokenToMintingType`: A public mapping from a token number to a minting type.
 
 ## Structs
@@ -246,7 +238,7 @@ constructor() Ownable(msg.sender) {
 }
 ```
 
-This constructor function initializes the contract with two Soulbound tokens.
+This constructor function initializes the contract with two pre-defined Soulbound tokens.
 
 # createSoulboundToken
 
@@ -286,3 +278,55 @@ function getCounter() external view returns (uint8) {
 ```
 
 This external function returns the current counter value minus one. The counter value is a state variable that tracks the total number of tokens or the last token ID.
+
+# Foundry Framework
+
+## Documentation
+
+https://book.getfoundry.sh/
+
+## Usage
+
+### Build
+
+```shell
+$ forge build
+```
+
+### Test
+
+```shell
+$ forge test
+```
+
+### Format
+
+```shell
+$ forge fmt
+```
+
+### Gas Snapshots
+
+```shell
+$ forge snapshot
+```
+
+### Anvil
+
+```shell
+$ anvil
+```
+
+### Cast
+
+```shell
+$ cast <subcommand>
+```
+
+### Help
+
+```shell
+$ forge --help
+$ anvil --help
+$ cast --help
+```

@@ -20,7 +20,6 @@ contract TestToken is Test {
         string Name;
         string Description;
         string Rarity;
-        uint8 XpBoost;
     }
 
     function setUp() public {

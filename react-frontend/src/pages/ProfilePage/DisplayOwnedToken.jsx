@@ -82,7 +82,11 @@ export const DisplayOwnedToken = () => {
           <CardContent>
             <Web3Button
               contractAddress={SOULBOUND_CONTRACT}
-              action={() => burn({ args: [tokenID] })}
+              action={() =>
+                burn({ args: [tokenID] })
+                  .then(() => alert("Token burned!"))
+                  .then(() => window.location.assign("/#/profile"))
+              }
               onError={(error) => alert("Something went wrong!")}
               className="crg-button"
             >

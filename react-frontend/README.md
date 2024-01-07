@@ -5,7 +5,7 @@ This is the front-end for the Soulbound Token smart contract. The project is bui
 ## Built With
 
 - [React](https://reactjs.org/) - The web framework used
-- [ThirdwebProvider](https://docs.thirdweb.com/) - The NFT platform used
+- [ThirdwebProvider](https://docs.thirdweb.com/) - The blockchain interraction platform used
 - [React Router](https://reactrouter.com/) - Used for routing
 - [Styled-components](https://styled-components.com/) - Used for component styling
 - [Dotenv](https://www.npmjs.com/package/dotenv) - Used to manage environment variables

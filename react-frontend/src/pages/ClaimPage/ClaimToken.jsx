@@ -123,7 +123,9 @@ export const ClaimToken = () => {
             <Web3Button
               contractAddress={SOULBOUND_CONTRACT}
               action={() =>
-                mintSoulboundToken({ args: [address, soulboundToken] })
+                mintSoulboundToken({ args: [address, soulboundToken] }).then(
+                  () => setOwnsToken(true)
+                )
               }
               onError={(error) => alert("Something went wrong!")}
               className="crg-button"

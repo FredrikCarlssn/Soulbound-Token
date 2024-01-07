@@ -20,49 +20,18 @@
       "isFixedGasLimit": false
     }
   ],
-  "receipts": [
-    {
-      "transactionHash": "0x48aaa802e28838f254798782ac3297d2a94a0a6e0100ed42b6aba2b954013cdf",
-      "transactionIndex": "0x7c",
-      "blockHash": "0x0d5e09e8596ad060a3535b046c229bb95e99e1d0cd258efed4f659faf1a039b5",
-      "blockNumber": "0x4cebf2",
-      "from": "0xc9c81Af14eC5d7a4Ca19fdC9897054e2d033bf05",
-      "to": null,
-      "cumulativeGasUsed": "0xed25a1",
-      "gasUsed": "0x2f1df4",
-      "contractAddress": "0x02f7a08Ae59b5ef4cE69c61CE89e1643D40917cE",
-      "logs": [
-        {
-          "address": "0x02f7a08Ae59b5ef4cE69c61CE89e1643D40917cE",
-          "topics": [
-            "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0",
-            "0x0000000000000000000000000000000000000000000000000000000000000000",
-            "0x000000000000000000000000c9c81af14ec5d7a4ca19fdc9897054e2d033bf05"
-          ],
-          "data": "0x",
-          "blockHash": "0x0d5e09e8596ad060a3535b046c229bb95e99e1d0cd258efed4f659faf1a039b5",
-          "blockNumber": "0x4cebf2",
-          "transactionHash": "0x48aaa802e28838f254798782ac3297d2a94a0a6e0100ed42b6aba2b954013cdf",
-          "transactionIndex": "0x7c",
-          "logIndex": "0xb2",
-          "removed": false
-        }
-      ],
-      "status": "0x1",
-      "logsBloom": "0x00000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000001000000000000000000000000000000000000020000000000000000000800000000000000000000000000000000500000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000400000000000000000020000000000000000000000000000000001000000000000000000000000000020000",
-      "type": "0x2",
-      "effectiveGasPrice": "0x3188c2bcd"
-    }
-  ],
+  "receipts": [],
   "libraries": [],
-  "pending": [],
+  "pending": [
+    "0x48aaa802e28838f254798782ac3297d2a94a0a6e0100ed42b6aba2b954013cdf"
+  ],
   "returns": {
     "0": {
       "internal_type": "contract SoulboundToken",
       "value": "0x02f7a08Ae59b5ef4cE69c61CE89e1643D40917cE"
     }
   },
-  "timestamp": 1704646045,
+  "timestamp": 1704646011,
   "chain": 11155111,
   "multi": false,
   "commit": "ee9f137"

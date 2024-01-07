@@ -34,8 +34,7 @@ const Background = styled.div`
   background-image: url(${softLight});
   background-size: cover;
   background-position: bottom;
-  background-blend-mode: multiply;
-  backdrop-filter: brightness(0.8) contrast(1) blur(10px);
+  backdrop-filter: brightness(0.8) blur(10px);
   min-height: 80vh;
   padding: 50px;
   border-radius: 3px;
