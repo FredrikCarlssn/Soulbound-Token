@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Soulbound-Token/static/css/main.41ff1b42.css",
-    "main.js": "/Soulbound-Token/static/js/main.3c7edc87.js",
+    "main.js": "/Soulbound-Token/static/js/main.d85ed6e8.js",
     "static/js/701.7d24b57d.chunk.js": "/Soulbound-Token/static/js/701.7d24b57d.chunk.js",
     "static/js/892.cbd4dd48.chunk.js": "/Soulbound-Token/static/js/892.cbd4dd48.chunk.js",
     "static/js/9189.8ddebe2b.chunk.js": "/Soulbound-Token/static/js/9189.8ddebe2b.chunk.js",
@@ -99,7 +99,7 @@
     "static/media/con-flat.svg": "/Soulbound-Token/static/media/con-flat.e1ab359aaa230f7e93a0c8da80444d69.svg",
     "index.html": "/Soulbound-Token/index.html",
     "main.41ff1b42.css.map": "/Soulbound-Token/static/css/main.41ff1b42.css.map",
-    "main.3c7edc87.js.map": "/Soulbound-Token/static/js/main.3c7edc87.js.map",
+    "main.d85ed6e8.js.map": "/Soulbound-Token/static/js/main.d85ed6e8.js.map",
     "701.7d24b57d.chunk.js.map": "/Soulbound-Token/static/js/701.7d24b57d.chunk.js.map",
     "892.cbd4dd48.chunk.js.map": "/Soulbound-Token/static/js/892.cbd4dd48.chunk.js.map",
     "6246.708b9339.chunk.js.map": "/Soulbound-Token/static/js/6246.708b9339.chunk.js.map",
@@ -160,6 +160,6 @@
   },
   "entrypoints": [
     "static/css/main.41ff1b42.css",
-    "static/js/main.3c7edc87.js"
+    "static/js/main.d85ed6e8.js"
   ]
 }
