@@ -138,7 +138,8 @@ contract SoulboundToken is
     function burn(uint256 tokenId) public override {
         address owner = ownerOf(tokenId);
         uint8 soulboundToken = tokenIdToSoulboundToken[tokenId];
-        claimedSoulboundToken[owner][soulboundToken] == false;
+        claimedSoulboundToken[owner][soulboundToken] = false;
+
         super.burn(tokenId);
     }
 

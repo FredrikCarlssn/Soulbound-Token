@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import { NavLink } from "react-router-dom";
 
 import city from "../img/city.png";
 import gamelogo from "../img/con-web-logo.png";
@@ -61,9 +62,9 @@ export const LandingPage = () => {
         <StyledHl src={horisontalLine} style={{ marginBottom: 10 }} />
         <StyledH1>Soulbound Token Claiming Grounds</StyledH1>
         <StyledHl src={horisontalLine} />
-        <a href="/#/claim">
+        <NavLink to={"/claim"}>
           <StyledButton className="crg-button">Claim</StyledButton>
-        </a>
+        </NavLink>
       </StyledDiv>
     </StyledLandingPage>
   );

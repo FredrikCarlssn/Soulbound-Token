@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import { NavLink } from "react-router-dom";
 import { ConnectWallet } from "@thirdweb-dev/react";
 
 import "../styles/header.css";
@@ -32,18 +33,18 @@ export const Header = () => {
         </div>
         <div className="menu-items-and-buttons">
           <div className="menu-items-container">
-            <a className="menu-item" href="/">
+            <NavLink className="menu-item" to={"/"}>
               Home
-            </a>
-            <a className="menu-item" href="/#/claim">
+            </NavLink>
+            <NavLink className="menu-item" to={"/claim"}>
               Claim
-            </a>
-            <a className="menu-item" href="/#/profile">
+            </NavLink>
+            <NavLink className="menu-item" to={"/profile"}>
               Profile
-            </a>
-            <a className="menu-item" href="/#/about">
+            </NavLink>
+            <NavLink className="menu-item" to={"/about"}>
               About
-            </a>
+            </NavLink>
           </div>
           <div className="menu-buttons">
             <WalletStyle>

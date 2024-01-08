@@ -1,14 +1,7 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import { TokenCard } from "../../components/TokenCard.jsx";
-import {
-  useContract,
-  useOwnedNFTs,
-  useAddress,
-  Web3Button,
-  useContractWrite,
-} from "@thirdweb-dev/react";
+import { useContract, Web3Button, useContractWrite } from "@thirdweb-dev/react";
 
 import Tokens from "../../Tokens/TokenData.json";
 import { SOULBOUND_CONTRACT } from "../../CONST.js";
@@ -68,6 +61,7 @@ export const DisplayOwnedToken = () => {
   const token = useParams().token;
   const tokenID = useParams().tokenId;
   const soulboundToken = Tokens[token].soulboundToken;
+  const navigate = useNavigate();
 
   const { contract } = useContract(SOULBOUND_CONTRACT);
   const { mutateAsync: burn, isLoading } = useContractWrite(contract, "burn");
@@ -85,7 +79,7 @@ export const DisplayOwnedToken = () => {
               action={() =>
                 burn({ args: [tokenID] })
                   .then(() => alert("Token burned!"))
-                  .then(() => window.location.assign("/#/profile"))
+                  .then(() => navigate("/profile"))
               }
               onError={(error) => alert("Something went wrong!")}
               className="crg-button"

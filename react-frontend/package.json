@@ -1,6 +1,6 @@
 {
   "name": "react-frontend",
-  "homepage": ".",
+  "homepage": "https://fredrikcarlssn.github.io/Soulbound-Token",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -19,7 +19,7 @@
     "https-browserify": "latest",
     "react": "^18.2",
     "react-dom": "^18.2",
-    "react-router-dom": "^6.18.0",
+    "react-router-dom": "^6.21.1",
     "react-scripts": "^5.0.1",
     "stream": "^0.0.2",
     "styled-components": "^6.1.1",
@@ -32,7 +32,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "yarn build && npx thirdweb@latest upload build"
+    "deploy": "yarn build && npx thirdweb@latest upload build",
+    "gh-pages": "react-scripts build && gh-pages -d build"
+
   },
   "eslintConfig": {
     "extends": [
@@ -51,5 +53,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^6.1.1"
   }
 }

@@ -23,4 +23,4 @@ Mumbai:
 	@forge script script/DeployToken.s.sol:DeployToken --rpc-url https://polygon-mumbai-bor.publicnode.com --private-key $(MUMBAI_TESTNET_PRIVATE_KEY) --broadcast  --etherscan-api-key ${POLYGONSCAN_API_KEY} --verify
 
 verify:
-	forge verify-contract --etherscan-api-key ${ETHERSCAN_API_KEY} ${ADDRESS} src/SoulboundToken.sol:SoulboundToken --watch  --chain sepolia
+	@forge verify-contract --etherscan-api-key ${ETHERSCAN_API_KEY} ${ADDRESS} src/SoulboundToken.sol:SoulboundToken --watch  --chain sepolia

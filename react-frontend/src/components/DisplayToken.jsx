@@ -4,6 +4,7 @@ import horisontalLine from "../img/Line-fade-300.png";
 import CardBackground from "../img/big-text-box.png";
 
 import Tokens from "../Tokens/TokenData.json";
+import { NavLink } from "react-router-dom";
 
 const StyledImg = styled.img`
   width: 160px;
@@ -62,9 +63,9 @@ export const DisplayToken = ({ name, linkTo }) => {
   `;
   return (
     <StyledDiv>
-      <a href={`/#/${linkTo}`}>
+      <NavLink to={`/${linkTo}`}>
         <StyledButton />
-      </a>
+      </NavLink>
       <StyledImg src={horisontalLine} alt={name} style={{ marginTop: 10 }} />
       <StyledP>{name}</StyledP>
       <StyledImg src={horisontalLine} alt={name} />

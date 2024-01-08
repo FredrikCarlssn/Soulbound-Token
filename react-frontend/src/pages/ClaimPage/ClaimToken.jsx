@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import {
   useContract,
@@ -72,6 +72,7 @@ export const ClaimToken = () => {
   const token = useParams().token;
   const soulboundToken = Tokens[token].soulboundToken;
   const [ownsToken, setOwnsToken] = useState(false);
+  const navigate = useNavigate();
 
   const address = useAddress();
 
@@ -124,7 +125,7 @@ export const ClaimToken = () => {
               contractAddress={SOULBOUND_CONTRACT}
               action={() =>
                 mintSoulboundToken({ args: [address, soulboundToken] }).then(
-                  () => setOwnsToken(true)
+                  () => navigate("/profile")
                 )
               }
               onError={(error) => alert("Something went wrong!")}

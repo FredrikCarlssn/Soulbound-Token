@@ -188,11 +188,20 @@ contract TestToken is Test {
     }
 
     function testOwnerBurn() public {
+        assertEq(
+            soulboundToken.claimedSoulboundToken(msg.sender, setupCounter),
+            true
+        );
         vm.prank(msg.sender);
         soulboundToken.burn(1);
-        assertEq(soulboundToken.claimedSoulboundToken(msg.sender, 1), false);
+        assertEq(
+            soulboundToken.claimedSoulboundToken(msg.sender, setupCounter),
+            false
+        );
         vm.expectRevert(abi.encodeWithSelector(selector2, 1));
         soulboundToken.ownerOf(1);
+
+        console.log(soulboundToken.claimedSoulboundToken(msg.sender, 1));
     }
 
     function testInvalidBurn() public {

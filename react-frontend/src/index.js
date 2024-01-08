@@ -4,18 +4,14 @@ import { ThirdwebProvider } from "@thirdweb-dev/react";
 import { Sepolia } from "@thirdweb-dev/chains";
 import "./styles/globals.css";
 import { createRoot } from "react-dom/client";
-import { HashRouter, Routes, Route } from "react-router-dom";
-import { Layout } from "./layout/Layout";
-import { LandingPage } from "./pages/LandingPage";
-import { ProfilePage } from "./pages/ProfilePage/ProfilePage";
-import { DisplayOwnedToken } from "./pages/ProfilePage/DisplayOwnedToken";
-import { ClaimPage } from "./pages/ClaimPage/ClaimPage";
-import { ClaimToken } from "./pages/ClaimPage/ClaimToken";
-import { AboutPage } from "./pages/AboutPage";
+import { RouterProvider, createHashRouter } from "react-router-dom";
+import { Router } from "./Router";
 
 // This is the chain your dApp will work on.
 // Change this to the chain your app is built for.
 // You can also import additional chains from `@thirdweb-dev/chains` and pass them directly.
+
+const router = createHashRouter;
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -25,21 +21,7 @@ root.render(
       activeChain={Sepolia}
       clientId={process.env.REACT_APP_TEMPLATE_CLIENT_ID}
     >
-      <HashRouter>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<LandingPage />} />
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route
-              path="/profile/:token/:tokenId"
-              element={<DisplayOwnedToken />}
-            />
-            <Route path="/claim" element={<ClaimPage />} />
-            <Route path="/claim/:token" element={<ClaimToken />} />
-            <Route path="/about" element={<AboutPage />} />
-          </Route>
-        </Routes>
-      </HashRouter>
+      <RouterProvider router={Router} />
     </ThirdwebProvider>
   </React.StrictMode>
 );
