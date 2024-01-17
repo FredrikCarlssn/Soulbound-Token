@@ -6,12 +6,16 @@ import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
 import {Base64} from "@openzeppelin/contracts/utils/Base64.sol";
 
 contract SoulboundStorage is Ownable {
+    /*//////////////////////////////////////////////////////////////
+                            STATE VARIABLES
+    //////////////////////////////////////////////////////////////*/
     uint8 internal counter = 1;
-    mapping(uint8 => SoulboundTokenStruct) public numberToSoulboundToken;
-    mapping(uint8 => string) public soulboundTokenToUri;
-    mapping(uint256 => uint8) public tokenIdToSoulboundToken;
-    mapping(uint8 => uint8) public soulboundTokenToMintingType;
-
+    mapping(uint256 => uint8) public tokenIdToSoulboundToken; //tokenId => SoulboundToken  ⤵
+    mapping(uint8 => string) public soulboundTokenToUri; //////////////////////////////// SoulboundToken => URI
+    mapping(uint8 => uint8) public soulboundTokenToMintingType; // SoulboundToken => MintingType
+    /*//////////////////////////////////////////////////////////////
+                                 STRUCT
+    //////////////////////////////////////////////////////////////*/
     struct SoulboundTokenStruct {
         string MediaType;
         string IPFS;
@@ -20,6 +24,9 @@ contract SoulboundStorage is Ownable {
         string Rarity;
     }
 
+    /*//////////////////////////////////////////////////////////////
+                              CONSTRUCTOR
+    //////////////////////////////////////////////////////////////*/
     constructor() Ownable(msg.sender) {
         createSoulboundToken(
             "image", //mediaType
@@ -39,6 +46,9 @@ contract SoulboundStorage is Ownable {
         );
     }
 
+    /*//////////////////////////////////////////////////////////////
+                       CREATE NEW SOULBOUND TOKEN
+    //////////////////////////////////////////////////////////////*/
     function createSoulboundToken(
         string memory _mediaType,
         string memory _IPFS,
@@ -48,7 +58,7 @@ contract SoulboundStorage is Ownable {
         uint8 _mintingType
     ) public onlyOwner returns (bool success, uint8 StandardTokenNumber) {
         if (
-            counter > 255 ||
+            counter > 254 ||
             keccak256(bytes(_mediaType)) == "" ||
             keccak256(bytes(_IPFS)) == "" ||
             keccak256(bytes(_name)) == "" ||
@@ -100,6 +110,9 @@ contract SoulboundStorage is Ownable {
         return uri;
     }
 
+    /*//////////////////////////////////////////////////////////////
+                         TOKEN TEMPLATE COUNTER
+    //////////////////////////////////////////////////////////////*/
     function getCounter() external view returns (uint8) {
         return counter - 1;
     }

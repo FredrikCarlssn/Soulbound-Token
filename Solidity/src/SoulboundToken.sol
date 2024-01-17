@@ -13,26 +13,35 @@ contract SoulboundToken is
     ERC721Burnable,
     SoulboundStorage
 {
+    /*//////////////////////////////////////////////////////////////
+                            STATE VARIABLES
+    //////////////////////////////////////////////////////////////*/
     uint256 private _tokenIdCounter;
     mapping(address => mapping(uint8 => bool)) public allowList; //address => SoulboundTokens => bool
     mapping(address => mapping(uint8 => bool)) public claimedSoulboundToken; //address => SoulboundTokens => bool
-
+    /*//////////////////////////////////////////////////////////////
+                                 ERRORS
+    //////////////////////////////////////////////////////////////*/
     error nonExistentToken(uint256 _tokenId);
     error invalidMint(uint8 MintingType, uint8 SoulboundToken, address Address);
     error alereadyExists(uint8 SoulboundToken);
-
+    /*//////////////////////////////////////////////////////////////
+                                  ENUM
+    //////////////////////////////////////////////////////////////*/
     enum MintingType {
         Everyone, // 0
         AllowList, // 1
         Owner // 2
     }
 
+    /*//////////////////////////////////////////////////////////////
+                              CONSTRUCTOR
+    //////////////////////////////////////////////////////////////*/
     constructor() ERC721("SoulBound", "SBT") {}
 
-    // ------------------ //
-    //  Minting Function  //
-    // ------------------ //
-
+    /*//////////////////////////////////////////////////////////////
+                            MINTING FUNCTION
+    //////////////////////////////////////////////////////////////*/
     function mintSoulboundToken(
         address _recipient,
         uint8 _soulboundToken
@@ -90,10 +99,9 @@ contract SoulboundToken is
         }
     }
 
-    // --------------------- //
-    //  AllowList Functions  //
-    // --------------------- //
-
+    /*//////////////////////////////////////////////////////////////
+                          ALLOWLIST FUNCTIONS
+    //////////////////////////////////////////////////////////////*/
     function addToAllowList(
         address _address,
         uint8 _soulboundToken
@@ -108,10 +116,9 @@ contract SoulboundToken is
         allowList[_address][_soulboundToken] = false;
     }
 
-    // ------------------ //
-    // URI-JSON Generator //
-    // ------------------ //
-
+    /*//////////////////////////////////////////////////////////////
+                           URI-JSON GENERATOR
+    //////////////////////////////////////////////////////////////*/
     function tokenURI(
         uint256 _tokenId
     ) public view override returns (string memory) {
@@ -120,9 +127,9 @@ contract SoulboundToken is
         return soulboundTokenToUri[tokenIdToSoulboundToken[_tokenId]];
     }
 
-    // ------------------ //
-    // Disable Transfers  //
-    // ------------------ //
+    /*//////////////////////////////////////////////////////////////
+                           DISABLE TRANSFERS
+    //////////////////////////////////////////////////////////////*/
 
     function transferFrom(
         address from,
@@ -132,9 +139,9 @@ contract SoulboundToken is
         revert("SoulboundToken: transfer not allowed");
     }
 
-    // ------------------ //
-    //    Burn Function   //
-    // ------------------ //
+    /*//////////////////////////////////////////////////////////////
+                             BURN FUNCTION
+    //////////////////////////////////////////////////////////////*/
     function burn(uint256 tokenId) public override {
         address owner = ownerOf(tokenId);
         uint8 soulboundToken = tokenIdToSoulboundToken[tokenId];
@@ -143,9 +150,9 @@ contract SoulboundToken is
         super.burn(tokenId);
     }
 
-    // ---------------------------- //
-    // Solidity Required overrides  //
-    // ---------------------------- //
+    /*//////////////////////////////////////////////////////////////
+                      SOLIDITY REQUIRED OVERRIDES
+    //////////////////////////////////////////////////////////////*/
     function _update(
         address to,
         uint256 tokenId,

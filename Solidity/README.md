@@ -2,6 +2,10 @@
 
 This is a framework for creating and storing Soulbound Tokens on any EVM-compatibale blockchain.
 
+## Deployed Contract
+
+The contract is deployed to Sepolia and verified on Etherscan and can be found on this link: https://sepolia.etherscan.io/address/0xEC0502AdB6D7426Fd6531c33bb4832A352F0D58f
+
 # Getting Started
 
 ## Foundry
@@ -70,6 +74,40 @@ The `SoulboundToken` contract is an ERC721 token with enumerable and burnable fe
 - `constructor() ERC721("SoulBound", "SBT") {}`: Initializes the contract with the name "SoulBound" and the symbol "SBT".
 
 ## Functions
+
+### MintSoulboundToken
+
+```solidity
+ function mintSoulboundToken(
+        address _recipient,
+        uint8 _soulboundToken
+    ) public {
+        address sender = msg.sender;
+        uint8 mintingType = soulboundTokenToMintingType[_soulboundToken];
+        if (mintingType == uint8(MintingType.Everyone)) {
+            Everyone(_recipient, _soulboundToken);
+        } else if (mintingType == uint8(MintingType.AllowList)) {
+            AllowList(_recipient, _soulboundToken, sender);
+        } else if (mintingType == uint8(MintingType.Owner)) {
+            Owner(_recipient, _soulboundToken, sender);
+        } else {
+            revert invalidMint(mintingType, _soulboundToken, _recipient);
+        }
+
+        _tokenIdCounter += 1;
+        tokenIdToSoulboundToken[_tokenIdCounter] = _soulboundToken;
+        _safeMint(_recipient, _tokenIdCounter);
+    }
+
+```
+
+The `mintSoulboundToken` function is used to mint a new Soulbound Token. The function takes two parameters: the recipient's address and the type of Soulbound Token to be minted.
+
+The function first checks the type of minting allowed for the specified Soulbound Token. This is determined by the `soulboundTokenToMintingType` mapping. Depending on the minting type, the function calls the appropriate function (`Everyone`, `AllowList`, or `Owner`).
+
+If the minting type is not recognized, the function reverts the transaction with an `invalidMint` error.
+
+After the checks and function calls, the function increments the `_tokenIdCounter` and assigns the new token ID to the specified Soulbound Token type. Finally, it mints the new token to the recipient's address using the `_safeMint` function.
 
 #### Everyone
 
@@ -154,32 +192,17 @@ This public function allows the owner of the contract to remove an address from 
 ### tokenURI
 
 ```Solidity
-function tokenURI(
-    uint256 _tokenId
-) public view override returns (string memory) {
-    if (ownerOf(_tokenId) == address(0)) revert nonExistentToken(_tokenId);
+    function tokenURI(
+        uint256 _tokenId
+    ) public view override returns (string memory) {
+        if (ownerOf(_tokenId) == address(0)) revert nonExistentToken(_tokenId);
 
-    return
-        string(
-            abi.encodePacked(
-                _baseURI(),
-                Base64.encode(constructAttributes(_tokenId))
-            )
-        );
-}
+        return soulboundTokenToUri[tokenIdToSoulboundToken[_tokenId]];
+    }
+
 ```
 
 This public function overrides the tokenURI function from the ERC721 standard. It returns a URI for a given token ID. The URI is a base64-encoded JSON string that contains the token's attributes. If the token does not exist, it reverts the transaction.
-
-### \_baseURI
-
-```Solidity
-function _baseURI() internal pure override(ERC721) returns (string memory) {
-    return "data:application/json;base64,";
-}
-```
-
-This internal function overrides the \_baseURI function from the ERC721 standard. It returns the base URI for all tokens, which is a data URI with the MIME type application/json and the encoding base64.
 
 ### transferFrom
 
@@ -216,7 +239,6 @@ The `SoulboundStorage` contract is a storage contract for Soulbound tokens. It p
 
 - `counter`: An internal variable used to keep track of the total number of Soulbound tokens.
 - `soulboundTokenToUri`: A public mapping in the `SoulboundStorage` contract that associates each Soulbound token (represented by a unique number) with a URI, which is a string representation of the token's metadata in base64-encoded JSON format.
-- `numberToSoulboundToken`: A public mapping from a token number to a `SoulboundTokenStruct`.
 - `tokenIdToSoulboundToken`: A public mapping from a token ID to a token number.
 - `soulboundTokenToMintingType`: A public mapping from a token number to a minting type.
 

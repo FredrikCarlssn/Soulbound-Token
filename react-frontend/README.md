@@ -16,6 +16,10 @@ The main entry point of the application is `index.js`. This file sets up the Rea
 
 The tokens are stored in the `Tokens` folder. This folder contains a JSON file with all the token templates, as well as an `img` folder for all media associated with each token template.
 
+## Smart Contract
+
+The smart contract address is stored in CONST.js in the source folder. The contract is link to to Etherscan is https://sepolia.etherscan.io/address/0xEC0502AdB6D7426Fd6531c33bb4832A352F0D58f
+
 ## Available Routes
 
 - `/` - The landing page of the application.

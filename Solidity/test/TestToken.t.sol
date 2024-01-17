@@ -8,7 +8,6 @@ contract TestToken is Test {
     SoulboundToken soulboundToken;
 
     uint8 setupCounter;
-
     bytes4 selector = bytes4(keccak256("invalidMint(uint8,uint8,address)"));
     bytes4 selector2 = bytes4(keccak256("ERC721NonexistentToken(uint256)"));
     bytes4 selector3 =
